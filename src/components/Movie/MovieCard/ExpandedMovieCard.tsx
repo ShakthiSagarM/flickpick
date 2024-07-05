@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from './ExpandedMovieCard.module.scss';
 import {MovieDetailsAxiosResponse, MovieDetailsQueryParams, MovieDetailsResponse, MovieEntryDetails} from "@/api/types";
 import { getHeaders, getImageUrl, urlWIthParams } from "@/api/utils";
@@ -11,7 +11,7 @@ interface ExpandedMovieCardProps extends MovieEntryDetails {
 }
 
 const ExpandedMovieCard: React.FC<ExpandedMovieCardProps> = (props) => {
-    const [movieDetails, setMovieDetails] = useState<MovieDetailsResponse>();
+    const [movieDetails, setMovieDetails] = React.useState<MovieDetailsResponse>();
     const { id, toggleExpand } = props;
 
     const params: MovieDetailsQueryParams = {
@@ -39,13 +39,13 @@ const ExpandedMovieCard: React.FC<ExpandedMovieCardProps> = (props) => {
 
 
 
-
     const topCrew = movieDetails?.credits?.cast
         .sort((a, b) => b.popularity - a.popularity)
         .slice(0, 7);
 
+    const [currentVideoIndex, setCurrentVideoIndex] = React.useState(0);
+
     const renderVideos = () => {
-        const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
         if (!movieDetails?.videos || movieDetails.videos.results.length === 0) {
             return null;
@@ -85,29 +85,29 @@ const ExpandedMovieCard: React.FC<ExpandedMovieCardProps> = (props) => {
                 <img src={getImageUrl(movieDetails?.poster_path || "")} alt={movieDetails?.title || "Movie Poster"} />
             </div>
             <div className={styles['movie-card-info']}>
-                <div className={styles['movie-card-header']}>
-                    <span className={styles['movie-card-title']}>{movieDetails?.title}</span>
-                    <div className={styles['movie-card-close']} onClick={toggleExpand}>X</div>
-                </div>
-                {movieDetails?.tagline && (
-                    <span className={styles['movie-card-tagline']}>{movieDetails.tagline}</span>
-                )}
-                <span className={styles['movie-card-description']}>{movieDetails?.overview}</span>
-                <div className={styles['movie-card-genres-rating']}>
+                <div className={styles['movie-card-movie-info']}>
+                    <div className={styles['movie-card-info-row']}>
+                        <span className={styles['movie-card-title']}>{movieDetails?.title}</span>
+                        <div className={styles['movie-card-close']} onClick={toggleExpand}>X</div>
+                    </div>
+                    {movieDetails?.tagline && (
+                        <span className={styles['movie-card-tagline']}>{movieDetails.tagline}</span>
+                    )}
+                    <span className={styles['movie-card-description']}>{movieDetails?.overview}</span>
+                    <div className={styles['movie-card-info-row']}>
                     <span className={styles['movie-card-genres']}>
                         {movieDetails?.genres.map(genre => genre.name).join(", ")}
                     </span>
-                    <div className={styles['movie-card-rating']}>
-                        <div className={styles['movie-card-rating-icon']}></div>
-                        <div className={styles['movie-card-rating-info']}>{movieDetails?.vote_average}</div>
+                        <div className={styles['movie-card-rating']}>
+                            <div className={styles['movie-card-rating-icon']}></div>
+                            <div className={styles['movie-card-rating-info']}>{movieDetails?.vote_average}</div>
+                        </div>
+                    </div>
+                    <div className={styles['movie-card-info-row']}>
+                        <span className={styles['movie-card-release-date']}>{movieDetails?.release_date}</span>
+                        <span className={styles['movie-card-runtime']}>{movieDetails?.runtime} mins</span>
                     </div>
                 </div>
-                <div className={styles['movie-card-genres-rating']}>
-                    <span className={styles['movie-card-release-date']}>{movieDetails?.release_date}</span>
-                    <span className={styles['movie-card-runtime']}>{movieDetails?.runtime} mins</span>
-                </div>
-
-
                 {topCrew && topCrew.length > 0 && (
                     <div className={styles['movie-card-crew']}>
                         <span className={styles['movie-card-crew-title']}>Top Cast</span>

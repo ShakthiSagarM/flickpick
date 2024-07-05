@@ -7,6 +7,8 @@ interface MovieCardProps extends MovieEntryDetails {}
 
 const MovieCard: React.FC<MovieCardProps> = (props) => {
 
+    console.log(props)
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleExpand = () => {

@@ -2,29 +2,41 @@ import React, { useState, useRef } from "react";
 import styles from "./MovieCarousel.module.scss";
 import MovieCard from "@/components/Movie/MovieCard/MovieCard";
 import {MovieEntryDetails} from "@/api/types";
+import {useMovieList} from "@/contexts/MovieListProvider";
 
 
 interface MovieCarouselProps {
-    movies: MovieEntryDetails[];
-    getNextPage: () => void;
 }
 
 const MovieCarousel: React.FC<MovieCarouselProps> = (props) => {
-    const { movies } = props;
+
+    const { movieList, getNextPage } = useMovieList();
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    console.log(movieList);
     React.useEffect(() => {
-        if (currentIndex === movies.length - 1) {
-            props.getNextPage();
+        if (currentIndex === movieList.length - 1) {
+            getNextPage();
         }
     }, [currentIndex]);
+
+    const disableNext = currentIndex === movieList.length - 1;
+    const disablePrev = currentIndex === 0;
+
+    const getNextIndex = () => {
+        setCurrentIndex((currentIndex) => currentIndex + 1);
+    }
+
+    const getPrevIndex = () => {
+        setCurrentIndex((currentIndex) => currentIndex - 1);
+    }
 
 
     return (
         <div className={styles['movie-carousel']}>
-            <button className={styles['movie-carousel-left-arrow']} onClick={() => setCurrentIndex(currentIndex - 1)} disabled={currentIndex === 0}>Previous</button>
-            <MovieCard {...movies[currentIndex]} />
-            <button className={styles['movie-carousel-right-arrow']} onClick={() => setCurrentIndex(currentIndex + 1)} disabled={currentIndex === movies.length - 1}>Next</button>
+            <button className={styles['movie-carousel-left-arrow']} onClick={getPrevIndex} disabled={disablePrev}>{'<'}</button>
+            <MovieCard {...movieList[currentIndex]} />
+            <button className={styles['movie-carousel-right-arrow']} onClick={getNextIndex} disabled={disableNext}>{'>'}</button>
         </div>
     );
 }

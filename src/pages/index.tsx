@@ -1,15 +1,14 @@
 import Head from "next/head";
-import Room from "@/components/Room/Room";
+import SelectRoomOptions from "@/components/Room/SelectRoomOptions";
 
 
 export default function Home() {
-
   return (
     <>
       <Head>
         <title>FlickPick</title>
       </Head>
-        <Room/>
+        <SelectRoomOptions/>
     </>
   );
 }
