@@ -12,7 +12,7 @@ const RoomId: React.FC<RoomIdProps> = () => {
 
     const {userName, setUserName} = useUser();
 
-    const [isUsernameSet, setIsUsernameSet] = React.useState<boolean>(userName);
+    const [isUsernameSet, setIsUsernameSet] = React.useState<boolean>(userName !== "");
 
     React.useEffect(() => {
         if (!isUsernameSet) {
