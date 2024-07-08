@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from './CollapsedMovieCard.module.scss';
-import {getImageUrl} from "@/api/utils";
-import {MovieEntryDetails} from "@/api/types";
+import {getImageUrl} from "@/utils/tmdb/utils";
+import {MovieEntryDetails} from "@/utils/tmdb/types";
 
 interface CollapsedMovieCardProps extends MovieEntryDetails {
     toggleExpand: () => void;

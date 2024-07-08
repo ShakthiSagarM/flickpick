@@ -1,4 +1,4 @@
-import {ACCESS_TOKEN} from "@/api/constants";
+import {ACCESS_TOKEN} from "@/utils/tmdb/constants";
 
 export const getHeaders = () => ({
         accept: 'application/json',

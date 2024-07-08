@@ -1,13 +1,12 @@
 import React from "react";
+import CreateRoom from "@/components/Room/CreateRoom";
 
-interface CreateRoomProps {}
+interface CreateProps {}
 
-const CreateRoom: React.FC<CreateRoomProps> = () => {
+const Create: React.FC<CreateProps> = () => {
   return (
-    <div>
-      CreateRoom Bro!!!!
-    </div>
+        <CreateRoom/>
   );
 };
 
-export default CreateRoom;
+export default Create;

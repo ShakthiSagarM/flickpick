@@ -1,16 +1,17 @@
 import React from "react";
 import { ROUTES } from "@/routes";
-import { useRouter } from 'next/router'; // Use the correct router import
+import {useRouter} from "next/router";
 
 interface SelectRoomOptionsProps {}
 
 const SelectRoomOptions: React.FC<SelectRoomOptionsProps> = () => {
-    const {asPath,push} = useRouter();
+
+    const router = useRouter();
 
     return (
         <div>
-            <button onClick={() => {window.location.href = ROUTES.JOIN_ROOM()}}>Join Room</button>
-            <button onClick={() => {window.location.href = ROUTES.CREATE_ROOM()}}>Create Room</button>
+            <button onClick={() => {router.push(ROUTES.JOIN_ROOM())}}>Join Room</button>
+            <button onClick={() => {router.push(ROUTES.CREATE_ROOM())}}>Create Room</button>
         </div>
     );
 };

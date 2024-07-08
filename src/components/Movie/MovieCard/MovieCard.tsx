@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { MovieEntryDetails } from "@/api/types";
+import { MovieEntryDetails } from "@/utils/tmdb/types";
 import ExpandedMovieCard from "@/components/Movie/MovieCard/ExpandedMovieCard";
 import CollapsedMovieCard from "@/components/Movie/MovieCard/CollapsedMovieCard";
+import {useRoom} from "@/contexts/RoomProvider";
 
 interface MovieCardProps extends MovieEntryDetails {}
 
 const MovieCard: React.FC<MovieCardProps> = (props) => {
-
-    console.log(props)
 
     const [isExpanded, setIsExpanded] = useState(false);
 

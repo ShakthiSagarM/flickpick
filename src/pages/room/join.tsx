@@ -1,19 +1,13 @@
 import React from "react";
-import {ROUTES} from "@/routes";
+import JoinRoom from "@/components/Room/JoinRoom";
 
-interface JoinRoomProps {}
+interface JoinProps {}
 
-const JoinRoom: React.FC<JoinRoomProps> = () => {
-
-
-
+const Join: React.FC<JoinProps> = () => {
 
     return (
-    <div>
-        JoinRoom Bro!!!!
-        <button onClick={()=>{{window.location.href = ROUTES.JOIN_ROOM_ID("123123")}}}>Join Room</button>
-    </div>
-  );
+        <JoinRoom/>
+    );
 };
 
-export default JoinRoom;
+export default Join;

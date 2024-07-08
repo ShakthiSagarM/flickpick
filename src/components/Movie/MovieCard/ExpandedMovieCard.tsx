@@ -1,10 +1,10 @@
 import React from "react";
 import styles from './ExpandedMovieCard.module.scss';
-import {MovieDetailsAxiosResponse, MovieDetailsQueryParams, MovieDetailsResponse, MovieEntryDetails} from "@/api/types";
-import { getHeaders, getImageUrl, urlWIthParams } from "@/api/utils";
+import {MovieDetailsAxiosResponse, MovieDetailsQueryParams, MovieDetailsResponse, MovieEntryDetails} from "@/utils/tmdb/types";
+import { getHeaders, getImageUrl, urlWIthParams } from "@/utils/tmdb/utils";
 import { useQuery } from "react-query";
 import axios, { AxiosError } from "axios";
-import { ENDPOINT, QUERY_KEYS } from "@/api/constants";
+import { ENDPOINT, QUERY_KEYS } from "@/utils/tmdb/constants";
 
 interface ExpandedMovieCardProps extends MovieEntryDetails {
     toggleExpand: () => void;
@@ -63,10 +63,11 @@ const ExpandedMovieCard: React.FC<ExpandedMovieCardProps> = (props) => {
 
         return (
             <div className={styles['movie-card-videos']}>
+                <h3>Videos</h3>
                 <div className={styles['video-container']}>
                     <iframe
                         className={styles['video-iframe']}
-                        src={`https://www.youtube.com/embed/${videos[currentVideoIndex].key}`}
+                        src={`https://www.youtube.com/embed/${videos[currentVideoIndex]?.key}`}
                         title={videos[currentVideoIndex].name}
                         allowFullScreen
                     ></iframe>
@@ -118,7 +119,7 @@ const ExpandedMovieCard: React.FC<ExpandedMovieCardProps> = (props) => {
                                          className={styles['crew-image']}/>
                                     <div>
                                         <span>{crew.name}</span>
-                                        <span>as {crew.character}</span>
+                                        <span> as {crew.character}</span>
                                     </div>
                                 </div>
                             ))}

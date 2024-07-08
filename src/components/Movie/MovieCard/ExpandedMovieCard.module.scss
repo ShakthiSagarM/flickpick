@@ -1,10 +1,10 @@
 .movie-card {
     display: flex;
     flex-direction: row;
-    width: 70%;
-    height: 80%;
-    max-height: 80%;
-    min-height: 80%;
+    width: 50%;
+    height: 90%;
+    max-height: 90%;
+    min-height: 90%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -33,7 +33,7 @@
         display: flex;
         height: 100%;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: start;
         grid-gap: 1rem;
         flex: 1;
         transition: padding 0.3s;
@@ -173,8 +173,7 @@
 
             .video-container {
                 position: relative;
-                padding-bottom: 56.25%; /* 16:9 aspect ratio */
-                overflow: hidden;
+                padding-bottom: 50%;
 
                 .video-iframe {
                     position: absolute;

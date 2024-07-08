@@ -1,10 +1,11 @@
 import React, {ReactNode} from "react";
-import {MovieEntryDetails, MovieListAxiosResponse} from "@/api/types";
+import {MovieEntryDetails, MovieListAxiosResponse} from "@/utils/tmdb/types";
 import {useQuery} from "react-query";
 import axios, {AxiosError} from "axios";
-import {ENDPOINT, QUERY_KEYS} from "@/api/constants";
-import {getHeaders, urlWIthParams} from "@/api/utils";
+import {ENDPOINT, QUERY_KEYS} from "@/utils/tmdb/constants";
+import {getHeaders, urlWIthParams} from "@/utils/tmdb/utils";
 import {useRoom} from "@/contexts/RoomProvider";
+import {useUser} from "@/contexts/UserProvider";
 
 interface MovieListProviderProps {
    movieList: MovieEntryDetails[];
@@ -37,9 +38,16 @@ export const MovieListProvider: React.FC<{ children: ReactNode }> = ({children})
             enabled: true}
     );
 
+    const {leftSwipedMovies,rightSwipedMovies} = useUser();
+
     const addUniqueMovies = (newMovies: MovieEntryDetails[]) => {
         const uniqueNewMovies = newMovies.filter((newMovie) => !movieList.some((movie) => movie.id === newMovie.id));
-        setMovieList((prevMovies) => [...prevMovies, ...uniqueNewMovies]);
+
+        const swipedMovies = [...rightSwipedMovies,...rightSwipedMovies];
+
+        const nonSwipedUniqueMovies = uniqueNewMovies.filter((newMovie) => !swipedMovies.includes(newMovie.id));
+
+        setMovieList((prevMovies) => [...nonSwipedUniqueMovies]);
     };
 
     React.useEffect(() => {
@@ -54,8 +62,11 @@ export const MovieListProvider: React.FC<{ children: ReactNode }> = ({children})
 
     const getNextPage = () => {
         setPage(page + 1);
-        updateParams({page : page});
     }
+
+    React.useEffect(() => {
+        updateParams({page : page});
+    }, [page]);
 
     return (
         <MovieListContext.Provider value={{movieList , getNextPage}}>
